@@ -25,6 +25,7 @@ class PluginsSpider(object):
 
     def search(self, keyword, indexer, page=0):
         try:
+            print(self, keyword, indexer, page)
             result_array = PluginManager().run_plugin_method(pid=indexer.parser, method='search', keyword=keyword, indexer=indexer, page=page)
             if not result_array:
                 return False, []

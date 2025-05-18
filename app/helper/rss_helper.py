@@ -17,21 +17,31 @@ class RssHelper:
         :param proxy: 是否使用代理
         :return: 种子信息列表，如为None代表Rss过期
         """
+
+        # 特殊标题处理站点映射
         _special_title_sites = {
             'pt.keepfrds.com': RssTitleUtils.keepfriends_title
         }
 
+        # RSS过期提示信息
         _rss_expired_msg = [
             "RSS 链接已过期, 您需要获得一个新的!",
             "RSS Link has expired, You need to get a new one!"
         ]
 
         # 开始处理
+
+        # 结果数组
         ret_array = []
+
+
         if not url:
             return []
+
+        # 获取网站域名
         site_domain = StringUtils.get_url_domain(url)
         try:
+            # 发送请求获取RSS内容
             ret = RequestUtils(proxies=Config().get_proxies() if proxy else None).get_res(url)
             if not ret:
                 return []

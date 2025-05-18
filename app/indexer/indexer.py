@@ -201,3 +201,13 @@ class Indexer(object):
         获取索引器统计信息
         """
         return self.dbhelper.get_indexer_statistics()
+
+if __name__ == '__main__':
+    # 创建Indexer实例
+    indexer = Indexer()
+    # 调用实例方法，提供必需的filter_args参数
+    indexer.search_by_keyword(
+        key_word='什么',
+        filter_args={}  # 可以传入空字典作为默认值
+    )
+

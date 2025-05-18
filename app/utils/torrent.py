@@ -6,7 +6,7 @@ import tempfile
 import hashlib
 from urllib.parse import unquote, urlencode, urlparse
 
-import libtorrent
+# import libtorrent
 from bencode import bencode, bdecode
 
 import log

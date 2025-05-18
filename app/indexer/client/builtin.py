@@ -282,6 +282,7 @@ class BuiltinIndexer(_IIndexClient):
         :param: timeout: 超时时间
         :return: 是否发生错误, 种子列表
         """
+        print(indexer, keyword, page, mtype)
         spider = TorrentSpider()
         spider.setparam(indexer=indexer,
                         keyword=keyword,
