@@ -27,6 +27,7 @@ from simple_websocket import ConnectionClosed
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 import log
+from app.helper.db_helper import DbHelper
 from app.brushtask import BrushTask
 from app.conf import ModuleConf, SystemConfig
 from app.downloader import Downloader
@@ -615,7 +616,15 @@ def discovery_person():
 @App.route('/downloading', methods=['POST', 'GET'])
 @login_required
 def downloading():
-    DispTorrents = WebAction().get_downloading().get("result")
+    downloaders = DbHelper().get_downloaders()
+    dl_ids = [dl.ID for dl in downloaders]
+    force_lists = [dl.ONLY_NASTOOL for dl in downloaders]
+
+    data = {
+        "ids": dl_ids,
+        "force_lists": force_lists
+    }
+    DispTorrents = WebAction().get_downloading(data).get("result")
     return render_template("download/downloading.html",
                            DownloadCount=len(DispTorrents),
                            Torrents=DispTorrents)

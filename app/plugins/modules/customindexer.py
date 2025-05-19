@@ -6,7 +6,7 @@ from app.helper import DbHelper
 from app.utils import JsonUtils
 from jinja2 import Template
 
-from web.backend.user import User
+from web.backend.pro_user import ProUser
 
 class Customindexer(_IPluginModule):
     # 插件名称
@@ -205,7 +205,7 @@ class Customindexer(_IPluginModule):
         """
 
     def get_oid_indexer(self, old_site=None, site=None):
-        indexer = User().get_indexer(url=old_site,
+        indexer = ProUser().get_indexer(url=old_site,
                                      public=False)
         pattern = re.compile(r'http[s]?://(.*?)\.')
         match_site = pattern.match(site)

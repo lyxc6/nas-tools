@@ -3789,21 +3789,28 @@ class WebAction:
         return {"code": 0, "result": [rec.as_dict() for rec in Rss().get_rss_history(rtype=mtype)]}
 
     @staticmethod
-    def get_downloading(data = {}):
+    def get_downloading(data=None):
         """
         查询正在下载的任务
         """
-        dl_id = data.get("id")
-        force_list = data.get("force_list")
+        if data is None:
+            torrents = None
+            return {"code": 0, "result": torrents}
+
+        dl_ids = data.get("ids", [])
+        force_lists = data.get("force_lists", [])
         MediaHander = Media()
         DownloaderHandler = Downloader()
-        torrents = DownloaderHandler.get_downloading_progress(downloader_id=dl_id, force_list=bool(force_list))
-        
+        torrents = []
+
+        for dl_id, force_list in zip(dl_ids, force_lists):
+            torrents = DownloaderHandler.get_downloading_progress(downloader_id=dl_id, force_list=bool(force_list))
+
         for torrent in torrents:
             # 先查询下载记录，没有再识别
             name = torrent.get("name")
             download_info = DownloaderHandler.get_download_history_by_downloader(
-                downloader=DownloaderHandler.default_downloader_id,
+                downloader=torrent.get("tag"),
                 download_id=torrent.get("id")
             )
             if download_info:

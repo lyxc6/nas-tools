@@ -236,6 +236,12 @@ class Downloader:
         log.info("下载文件转移服务启动，目的目录：媒体库")
 
     def __get_client(self, did=None):
+        """
+        获取下载器客户端实例
+
+        :param did: 下载器ID
+        :return: 下载器客户端实例或None
+        """
         if not did:
             return None
         downloader_conf = self.get_downloader_conf(did)
@@ -646,6 +652,7 @@ class Downloader:
         downloader_conf = self.get_downloader_conf(downloader_id)
         only_nastool = downloader_conf.get("only_nastool") if not force_list else False
         _client = self.__get_client(downloader_id)
+        print(_client)
         if not _client:
             return []
         if only_nastool:
