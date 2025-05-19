@@ -156,3 +156,31 @@ pip install xxx --proxy=http://ip:port
 *  订阅中设置总集数
 
 更多功能使用请查看 [nas-tools wiki](https://t.me/NAStool_wiki)
+
+## 功能特点
+
+### 下载器支持
+- QB、TR、Aria2、Transmission 下载器支持
+- 迅雷下载器支持 (新增)
+  - 支持磁力链接和种子文件下载
+  - 支持下载任务管理(开始/暂停/删除)
+  - 支持自定义下载目录
+  - 支持下载进度显示
+  - 支持多设备同步
+
+#### 迅雷下载器配置
+在`设置-下载器`中添加迅雷下载器:
+- 名称：自定义名称
+- 类型：选择"迅雷"
+- 地址：迅雷WebAPI地址(例如: http://192.168.1.100)
+- 端口：迅雷WebAPI端口(默认为5055)
+- 用户名：迅雷登录用户名
+- 密码：迅雷登录密码
+- 下载目录：默认下载保存目录
+
+### 2025 根据多个项目进行整合
+主项目：https://github.com/hsuyelin/nas-tools
+
+子项目1：https://github.com/Mattoids/nas-tools
+
+子项目2：https://github.com/dominikwei9898/nastools-with-Xunlei
