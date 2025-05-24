@@ -1,4 +1,4 @@
-name: NssTool Image 构建
+name: NasTool Image 构建
 
 on:
   workflow_dispatch:
@@ -18,12 +18,13 @@ jobs:
       - name: Extract Version
         id: version
         run: |
+          # 自动从version.py获取版本号，在github action可选输入后缀
           app_version=$(cat version.py | sed -ne "s/APP_VERSION\s=\s'v\(.*\)'/\1/gp")
           if [ -n "${{ inputs.version_suffix }}" ]; then
             app_version="${app_version}-${{ inputs.version_suffix }}"
           fi
             echo "app_version=${app_version}" >> $GITHUB_ENV
-            echo "image_name=ghcr.io/${{ github.repository_owner }}/nas-tools:${app_version}-debian" >> $GITHUB_ENV
+            echo "image_name=ghcr.io/${{ github.repository_owner }}/nas-tools:${app_version}" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
