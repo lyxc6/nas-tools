@@ -941,6 +941,15 @@ def customwords():
                            Groups=groups,
                            GroupsCount=len(groups))
 
+# 自定义制作组设置页面
+@App.route('/custom_production_team', methods=['POST', 'GET'])
+@login_required
+def custom_production_team():
+    groups = WebAction().get_custom_production_team().get("result")
+    return render_template("setting/custom_production_team.html",
+                           Groups=groups,
+                           GroupsCount=len(groups))
+
 
 # 目录同步页面
 @App.route('/directorysync', methods=['POST', 'GET'])

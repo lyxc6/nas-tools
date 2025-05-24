@@ -11,6 +11,7 @@ from config import Config
 class OpenAiHelper:
     _api_key = None
     _api_url = None
+    _model_name = None
 
     def __init__(self):
         self.init_config()
@@ -19,6 +20,7 @@ class OpenAiHelper:
         self._api_key = Config().get_config("openai").get("api_key")
         if self._api_key:
             openai.api_key = self._api_key
+        self._model_name = Config().get_config("openai").get("model_name")
         self._api_url = Config().get_config("openai").get("api_url")
         if self._api_url:
             openai.api_base = self._api_url + "/v1"
@@ -75,6 +77,7 @@ class OpenAiHelper:
     @staticmethod
     def __get_model(message,
                     prompt=None,
+                    model=None,
                     user="NAStool",
                     **kwargs):
         """
@@ -100,7 +103,7 @@ class OpenAiHelper:
                     }
                 ]
         return openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=model,
             user=user,
             messages=message,
             **kwargs
@@ -129,7 +132,9 @@ class OpenAiHelper:
             _filename_prompt = "I will give you a movie/tvshow file name.You need to return a Json." \
                                "\nPay attention to the correct identification of the film name." \
                                "\n{\"title\":string,\"version\":string,\"part\":string,\"year\":string,\"resolution\":string,\"season\":number|null,\"episode\":number|null}"
-            completion = self.__get_model(prompt=_filename_prompt, message=filename)
+            completion = self.__get_model(prompt=_filename_prompt,
+                                          message=filename,
+                                          model=self._model_name)
             result = completion.choices[0].message.content
             return json.loads(result)
         except Exception as e:
@@ -155,7 +160,7 @@ class OpenAiHelper:
                 return "会话已清除"
             # 获取历史上下文
             messages = self.__get_session(userid, text)
-            completion = self.__get_model(message=messages, user=userid)
+            completion = self.__get_model(message=messages, user=userid, model=self._model_name)
             result = completion.choices[0].message.content
             if result:
                 self.__save_session(userid, text)
@@ -182,6 +187,7 @@ class OpenAiHelper:
         try:
             completion = self.__get_model(prompt=system_prompt,
                                           message=user_prompt,
+                                          model=self._model_name,
                                           temperature=0,
                                           top_p=1,
                                           frequency_penalty=0,
@@ -203,7 +209,7 @@ class OpenAiHelper:
         result = ""
         try:
             _question_prompt = "下面我们来玩一个游戏，你是老师，我是学生，你需要回答我的问题，我会给你一个题目和几个选项，你的回复必须是给定选项中正确答案对应的序号，请直接回复数字"
-            completion = self.__get_model(prompt=_question_prompt, message=question)
+            completion = self.__get_model(prompt=_question_prompt, message=question,model=self._model_name)
             result = completion.choices[0].message.content
             return result
         except Exception as e:

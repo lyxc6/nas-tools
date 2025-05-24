@@ -246,6 +246,9 @@ class Scraper:
             # 年份
             DomUtils.add_node(doc, root, "year",
                               tmdbinfo.get("release_date")[:4] if tmdbinfo.get("release_date") else "")
+            # 电影集
+            if tmdbinfo.get("belongs_to_collection"):
+                DomUtils.add_node(doc, root, "set", tmdbinfo.get("belongs_to_collection").get("name") or "")
         # 保存
         self.__save_nfo(doc, os.path.join(out_path, "%s.nfo" % file_name))
 

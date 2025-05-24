@@ -4047,6 +4047,16 @@ class WebAction:
         }
 
     @staticmethod
+    def get_custom_production_team():
+
+        groups = 'abc'
+
+        return {
+            "code": 0,
+            "result": groups
+        }
+
+    @staticmethod
     def get_users():
         """
         查询所有用户

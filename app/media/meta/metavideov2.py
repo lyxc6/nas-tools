@@ -13,9 +13,9 @@ from .mediaItem import MediaItem
 from app.utils import StringUtils
 from app.utils.types import MediaType
 from app.utils.tokens import Tokens
-        
-class MetaVideoV2(MetaBase):
 
+
+class MetaVideoV2(MetaBase):
     _media_item_title = None
     _media_item_subtitle = None
     _original_title = None
@@ -23,16 +23,16 @@ class MetaVideoV2(MetaBase):
 
     _name_no_begin_re = r"^\[.+?]"
     _name_nostring_re = r"^PTS|^JADE|^ViuTV|^AOD|^CHC|^[A-Z]{1,4}TV[\-0-9UVHDK]*" \
-                    r"|HBO$|\s+HBO|\d{1,2}th|\d{1,2}bit|NETFLIX|AMAZON|IMAX|^3D|\s+3D|^BBC\s+|\s+BBC|BBC$|DISNEY\+?|XXX|\s+DC$" \
-                    r"|[第\s共]+[0-9一二三四五六七八九十\-\s]+季" \
-                    r"|[第\s共]+[0-9一二三四五六七八九十百零\-\s]+[集话話]" \
-                    r"|连载|日剧|美剧|电视剧|动画片|动漫|欧美|西德|日韩|超高清|高清|蓝光|翡翠台|梦幻天堂·龙网|★?\d*月?新番" \
-                    r"|最终季|合集|[多中国英葡法俄日韩德意西印s泰台港粤双文语简繁体特效内封官译外挂]+字幕|版本|出品|台版|港版|\w+字幕组" \
-                    r"|未删减版|UNCUT$|UNRATE$|WITH EXTRAS$|RERIP$|SUBBED$|PROPER$|REPACK$|SEASON$|EPISODE$|Complete$|Extended$|Extended Version$" \
-                    r"|S\d{2}\s*-\s*S\d{2}|S\d{2}|\s+S\d{1,2}|EP?\d{2,4}\s*-\s*EP?\d{2,4}|EP?\d{2,4}|\s+EP?\d{1,4}" \
-                    r"|CD[\s.]*[1-9]|DVD[\s.]*[1-9]|DISK[\s.]*[1-9]|DISC[\s.]*[1-9]" \
-                    r"|[248]K|\d{3,4}[PIX]+" \
-                    r"|CD[\s.]*[1-9]|DVD[\s.]*[1-9]|DISK[\s.]*[1-9]|DISC[\s.]*[1-9]"
+                        r"|HBO$|\s+HBO|\d{1,2}th|\d{1,2}bit|NETFLIX|AMAZON|IMAX|^3D|\s+3D|^BBC\s+|\s+BBC|BBC$|DISNEY\+?|XXX|\s+DC$" \
+                        r"|[第\s共]+[0-9一二三四五六七八九十\-\s]+季" \
+                        r"|[第\s共]+[0-9一二三四五六七八九十百零\-\s]+[集话話]" \
+                        r"|连载|日剧|美剧|电视剧|动画片|动漫|欧美|西德|日韩|超高清|高清|蓝光|翡翠台|梦幻天堂·龙网|★?\d*月?新番" \
+                        r"|最终季|合集|[多中国英葡法俄日韩德意西印s泰台港粤双文语简繁体特效内封官译外挂]+字幕|版本|出品|台版|港版|\w+字幕组" \
+                        r"|未删减版|UNCUT$|UNRATE$|WITH EXTRAS$|RERIP$|SUBBED$|PROPER$|REPACK$|SEASON$|EPISODE$|Complete$|Extended$|Extended Version$" \
+                        r"|S\d{2}\s*-\s*S\d{2}|S\d{2}|\s+S\d{1,2}|EP?\d{2,4}\s*-\s*EP?\d{2,4}|EP?\d{2,4}|\s+EP?\d{1,4}" \
+                        r"|CD[\s.]*[1-9]|DVD[\s.]*[1-9]|DISK[\s.]*[1-9]|DISC[\s.]*[1-9]" \
+                        r"|[248]K|\d{3,4}[PIX]+" \
+                        r"|CD[\s.]*[1-9]|DVD[\s.]*[1-9]|DISK[\s.]*[1-9]|DISC[\s.]*[1-9]"
     _release_group_re = r"\[.*(?:字幕组|字幕社|发布组|手抄部|手抄组|压制|动漫|新番|合集|连载|日剧|美剧|电视剧|动画片|动漫|欧美|西德|日韩|超高清|高清|蓝光|翡翠台|梦幻天堂·龙网|喵萌奶茶屋|Sub|LoliHouse|毀片黨|毁片党|论坛|Raws)\]"
     _seasons_re = r"(?:第)?\s*(?:\d+|[一二三四五六七八九十]+)\s*(季)?\s*\.\s*(?:第)?\s*(?:\d+|[一二三四五六七八九十]+)\s*(季)"
     _seasons_re_2 = r"(?:[Ss]0*|Season|season)([0-9]+)\s*\.\s*(?:[Ss]0*|Season|season)([0-9]+)"
@@ -132,7 +132,7 @@ class MetaVideoV2(MetaBase):
         # 去掉名字中不需要的干扰字符，过短的纯数字不要
         self.cn_name = self.__fix_name(self.cn_name)
         self.en_name = StringUtils.str_title(self.__fix_name(self.en_name))
-        
+
         # 处理part
         if StringUtils.is_string_and_not_empty(self.part) and self.part.upper() == "PART":
             self.part = None
@@ -147,7 +147,7 @@ class MetaVideoV2(MetaBase):
         media_type = self._media_item_title.main.media_type if self._media_item_title.main.media_type else self._media_item_subtitle.main.media_type
         if StringUtils.is_string_and_not_empty(media_type):
             self.type = MediaType.MOVIE if media_type.lower() == "movie" else MediaType.TV
-            self.media_type = MediaType.MOVIE if media_type.lower() == "movie" else MediaType.TV  
+            self.media_type = MediaType.MOVIE if media_type.lower() == "movie" else MediaType.TV
         else:
             self.type = MediaType.MOVIE
             self.media_type = MediaType.MOVIE
@@ -155,7 +155,8 @@ class MetaVideoV2(MetaBase):
     def __init_name(self):
         if StringUtils.is_string_and_not_empty(self.cn_name) and StringUtils.is_string_and_not_empty(self.en_name):
             return
-        name = self._media_item_title.main.title if StringUtils.is_string_and_not_empty(self._media_item_title.main.title) else self._media_item_subtitle.main.title
+        name = self._media_item_title.main.title if StringUtils.is_string_and_not_empty(
+            self._media_item_title.main.title) else self._media_item_subtitle.main.title
         if not StringUtils.is_string_and_not_empty(name):
             return
         if StringUtils.is_eng_media_name_format(name):
@@ -318,7 +319,8 @@ class MetaVideoV2(MetaBase):
         if len(special_streaming_services_matches) > 1:
             special_streaming_services_text = ' '.join(special_streaming_services_matches)
         else:
-            special_streaming_services_text = special_streaming_services_matches[0] if special_streaming_services_matches else ""
+            special_streaming_services_text = special_streaming_services_matches[
+                0] if special_streaming_services_matches else ""
         if special_streaming_services_text:
             self.resource_type += f" {special_streaming_services_text}"
             self.resource_type = self.resource_type.rstrip()
@@ -385,7 +387,7 @@ class MetaVideoV2(MetaBase):
             elif StringUtils.is_string_and_not_empty(subltitle_video_encodes):
                 self.video_encode = subltitle_video_encodes
             else:
-                self.video_encode = None 
+                self.video_encode = None
 
         title_video_color_depths = self._media_item_title.video.color_depth
         subltitle_video_color_depths = self._media_item_subtitle.video.color_depth
@@ -448,7 +450,6 @@ class MetaVideoV2(MetaBase):
             self.audio_encode += f" {audio_channels}"
         else:
             self.audio_encode = audio_channels
-
 
     def __fix_resource_team(self):
         if StringUtils.is_string_and_not_empty(self.resource_team):
@@ -527,10 +528,10 @@ class MetaVideoV2(MetaBase):
 
         title = re.sub(r"[*?\\/\"<>~|]", "", title, flags=re.IGNORECASE) \
             .replace("-", ".") \
-            .replace("【",  "[") \
+            .replace("【", "[") \
             .replace("】", "]") \
-
-        # 将开头字幕组信息移动至字符串末尾
+ \
+            # 将开头字幕组信息移动至字符串末尾
         title = self.__fix_release_group(title)
         # 去除其他不重要的信息
         title = re.sub(r'%s' % self._other_re, '', title, flags=re.IGNORECASE)
@@ -553,7 +554,8 @@ class MetaVideoV2(MetaBase):
                 try:
                     begin_season = int(cn2an.cn2an(seasons[0], "smart"))
                     end_season = int(cn2an.cn2an(seasons[-1], "smart"))
-                    title = re.sub(r'%s' % seasons_pattern, f".S{begin_season}-S{end_season}.", title, flags=re.IGNORECASE)
+                    title = re.sub(r'%s' % seasons_pattern, f".S{begin_season}-S{end_season}.", title,
+                                   flags=re.IGNORECASE)
                 except Exception as e:
                     pass
         else:
@@ -583,7 +585,8 @@ class MetaVideoV2(MetaBase):
                 try:
                     begin_episode = int(cn2an.cn2an(episodes[0], "smart"))
                     end_episode = int(cn2an.cn2an(episodes[-1], "smart"))
-                    title = re.sub(r'%s' % episodes_pattern, f".E{begin_episode}-E{end_episode}.", title, flags=re.IGNORECASE)
+                    title = re.sub(r'%s' % episodes_pattern, f".E{begin_episode}-E{end_episode}.", title,
+                                   flags=re.IGNORECASE)
                 except Exception as e:
                     pass
         else:
@@ -820,7 +823,7 @@ class MetaVideoV2(MetaBase):
 
         if self.begin_episode and self.end_episode and self.begin_episode == self.end_episode:
             self.end_episode = None
-            
+
         if self.begin_season and self.end_season and self.begin_season != self.end_season:
             self.begin_episode = None
             self.end_episode = None
@@ -841,5 +844,4 @@ class MetaVideoV2(MetaBase):
 
     def __is_digit(self, number):
         return isinstance(number, (int, float))
-
 

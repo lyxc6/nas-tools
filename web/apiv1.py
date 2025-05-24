@@ -42,6 +42,7 @@ media = Apiv1.namespace('media', description='媒体')
 sync = Apiv1.namespace('sync', description='目录同步')
 filterrule = Apiv1.namespace('filterrule', description='过滤规则')
 words = Apiv1.namespace('words', description='识别词')
+teams = Apiv1.namespace('teams', description='制作组')
 message = Apiv1.namespace('message', description='消息通知')
 plugin = Apiv1.namespace('plugin', description='插件')
 

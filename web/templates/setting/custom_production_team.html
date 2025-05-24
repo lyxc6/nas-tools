@@ -1,0 +1,62 @@
+{% import 'macro/svg.html' as SVG %}
+<div class="container-xl">
+  <!-- Page title -->
+  <div class="page-header d-print-none">
+    <div class="row align-items-center">
+      <div class="col">
+        <h2 class="page-title">
+          自定义制作组
+        </h2>
+      </div>
+      <div class="col-auto ms-auto d-print-none">
+        <div class="btn-list">
+          <a href="javascript:show_add_custom_word_group_modal()" class="btn btn-primary d-none d-sm-inline-block">
+            {{ SVG.plus() }}
+            新增
+          </a>
+          <a href="javascript:show_add_custom_word_group_modal()" class="btn btn-twitter d-sm-none btn-icon">
+            {{ SVG.plus() }}
+          </a>
+          <a href="javascript:show_import_custom_words_modal()"
+            class="btn btn-twitter ms-auto d-none d-sm-inline-block">
+            {{ SVG.transfer_in() }}
+            导入
+          </a>
+          <a href="javascript:show_import_custom_words_modal()" class="btn btn-twitter d-sm-none btn-icon">
+            {{ SVG.transfer_in() }}
+          </a>
+          <div class="dropdown">
+            <a href="#" class="btn ms-auto d-none d-sm-inline-block dropdown-toggle"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              {{ SVG.menu_2() }}
+              批量管理
+            </a>
+            <a href="#" class="btn d-sm-none btn-icon"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              {{ SVG.menu_2() }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item text-mute" href="javascript:batch_check_action('enable')" >
+                启用
+              </a>
+              <a class="dropdown-item text-mute" href="javascript:batch_check_action('disable')">
+                停用
+              </a>
+              <a class="dropdown-item text-mute" href="javascript:batch_check_action('export')">
+                导出
+              </a>
+              <a class="dropdown-item text-danger" href="javascript:batch_check_action('delete')">
+                删除
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body ">
+
+  <div class="container-xl">
+</div>
